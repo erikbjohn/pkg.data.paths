@@ -30,7 +30,7 @@ dt <- function(path.root='~/Dropbox/pkg.data/'){
   pkg.data$file.name <- mapply(function(x, y) x[y], l.split, name.ind)
   pkg.data$file.body <- str_replace(pkg.data$pkg.path, regex(paste0('(',paste0(unique(pkg.data$pkg.name), collapse='|'),')\\/'), perl=TRUE), '')
   pkg.data$file.body <- mapply(function(x,y ) str_replace(x, y, ''), pkg.data$file.body, pkg.data$file.name)
-  pkg.data$pkg.root <- paste0(path.root, pkg.data$pkg.name)
+  pkg.data$pkg.root <- paste0(path.root, '/',pkg.data$pkg.name)
   dt.pkg.data <- as.data.table(do.call(cbind, pkg.data))
   return(dt.pkg.data)
 }
