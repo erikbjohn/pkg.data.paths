@@ -20,8 +20,8 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 #' @export
 #' @import stringr
 #'     data.table
-dt <- function(path.root){
-  if (missing(path.root)){
+dt <- function(path.root=NULL){
+  if (is.null(path.root)){
     path.root  <- '~/Dropbox/pkg.data'
     cat('dropbox path missing in pkg.data.paths::path.root, using', path.root)
   }
