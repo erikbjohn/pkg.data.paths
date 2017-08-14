@@ -35,7 +35,7 @@ dt <- function(path.root=NULL, str.pkg.name = NULL){
   # If importing specific package
   if (!is.null(str.pkg.name)){
     # Check and intialize 'clean' directories for new import
-    dt.pkg <- build.pkg.paths(dt.full, str.pkg.name)
+    dt.pkg <- build.pkg.paths(dt.full, str.pkg.name, path.root)
     return(dt.pkg)
     # Rebuild 
   } else {
@@ -73,7 +73,7 @@ build.paths <- function(path.root, str.pkg.name){
 #' @export
 #' @import stringr
 #'     data.table
-build.pkg.paths <- function(dt.full, str.pkg.name){
+build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   pkg.name <- NULL; file.name <- NULL; file.body <- NULL
   dt.pkg <- dt.full[str_detect(pkg.name, regex(paste0('(?i)', str.pkg.name), perl=TRUE)) &
                       !str_detect(file.name, 'Icon')]
@@ -128,5 +128,5 @@ build.pkg.paths <- function(dt.full, str.pkg.name){
   }
  cat(unlist(l.msg,use.names = FALSE), labels=NULL, sep='\n \n')
  # Rebuild locations
- return(build.paths(dir.pkg.root, str.pkg.name))
+ return(build.paths(path.root, str.pkg.name))
 }

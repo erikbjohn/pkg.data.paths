@@ -4,7 +4,7 @@
 \alias{build.pkg.paths}
 \title{build.pkg.paths}
 \usage{
-build.pkg.paths(dt.full, str.pkg.name)
+build.pkg.paths(dt.full, str.pkg.name, path.root)
 }
 \arguments{
 \item{dt.full}{full root paths for all local dropbox data}
