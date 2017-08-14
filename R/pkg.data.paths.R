@@ -76,6 +76,7 @@ build.paths <- function(path.root, str.pkg.name){
 #'     data.table
 build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   pkg.name <- NULL; file.name <- NULL; file.body <- NULL
+  check.raw <- NULL; check.clean <- NULL
   dt.pkg <- dt.full[str_detect(pkg.name, regex(paste0('(?i)', str.pkg.name), perl=TRUE)) &
                       !str_detect(file.name, 'Icon')]
   dir.pkg.root <- dt.pkg$pkg.root[1]
@@ -96,7 +97,9 @@ build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   l$dirs <- list.dirs(dir.pkg.root, recursive = FALSE, full.names = FALSE)
   l$raw <- sapply(dt.pkg$sys.path, function(x) str_detect(x, regex('(?i)\\/raw\\/', perl=TRUE)))
   l$clean <- sapply(dt.pkg$sys.path, function(x) str_detect(x, regex('(?i)\\/clean\\/', perl=TRUE)))
-  l$unassigned.files <- dt.pkg[l$raw == FALSE & l$clean == FALSE & file.body == '']
+  dt.pkg$check.raw <- l$raw
+  dt.pkg$check.clean <- l$clean
+  l$unassigned.files <- dt.pkg[!check.raw & !check.clean & file.body == '']
   l$unassigned.dirs <- l$dirs[!str_detect(l$dirs, regex('(?i)(clean|raw)', perl=TRUE))]
 
   # Check for raw data directory
