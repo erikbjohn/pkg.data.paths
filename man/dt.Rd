@@ -4,7 +4,7 @@
 \alias{dt}
 \title{dt}
 \usage{
-dt(path.root = "~/Dropbox/pkg.data")
+dt(path.root)
 }
 \arguments{
 \item{path.root}{root path for dropbox package data}

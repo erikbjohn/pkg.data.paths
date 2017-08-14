@@ -20,7 +20,11 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 #' @export
 #' @import stringr
 #'     data.table
-dt <- function(path.root='~/Dropbox/pkg.data'){
+dt <- function(path.root){
+  if (missing(path.root)){
+    path.root  <- '~/Dropbox/pkg.data'
+    cat('dropbox path missing in pkg.data.paths::path.root, using', path.root)
+  }
   pkg.data <- lapply(c(TRUE,FALSE), function(x) list.files(path.root, full.names = x, recursive = TRUE))
   names(pkg.data) <- c('sys.path', 'pkg.path')
   pkg.data$pkg.path <- str_replace_all(pkg.data$pkg.path, '\\\r', '')
