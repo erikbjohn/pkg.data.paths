@@ -12,7 +12,7 @@ NULL
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 
-#' @title dt
+#' @title paths
 #'
 #' @description creates data table with path infor
 #' @param path.root root path for dropbox package data
@@ -21,12 +21,12 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 #' @export
 #' @import stringr
 #'     data.table
-dt <- function(path.root=NULL, str.pkg.name = NULL){
+paths <- function(path.root=NULL, str.pkg.name = NULL){
   ls.pkg.data <- list()
   # Collect all dropbox pkg.data stored locally
   if (is.null(path.root)){
     path.root  <- '~/Dropbox/pkg.data'
-    cat('dropbox path missing in pkg.data.paths::path.root, using', path.root, '\n ')
+    cat('Dropbox path missing in pkg.data.paths::path.root. using', path.root, '\n ')
   }
 
   # Build initial base paths with all dropbox pkg.data files
@@ -101,13 +101,13 @@ build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   # Check for raw data directory
   if (length(which(l$raw)) == 0){
     dir.create(dir.pkg.raw, showWarnings = FALSE)
-    l.msg$dir.pkg.raw <- paste0('Creatied raw directory for package in ', dir.pkg.raw)
+    l.msg$dir.pkg.raw <- paste0('Created raw directory for package in ', dir.pkg.raw)
   }
   
   # Check for clean data directory
   if (length(which(l$clean))== 0){
     dir.create(dir.pkg.clean, showWarnings = FALSE)
-    l.msg$dir.pkg.clean <- paste0('Creatied clean directory for package in ', dir.pkg.clean)
+    l.msg$dir.pkg.clean <- paste0('Created clean directory for package in ', dir.pkg.clean)
   }
   
   # Move unassigned files to raw
@@ -129,5 +129,6 @@ build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   }
  cat(unlist(l.msg,use.names = FALSE), labels=NULL, sep='\n \n')
  # Rebuild locations
- return(build.paths(path.root, str.pkg.name))
+ dt.full <- build.paths(path.root, str.pkg.name)
+ return(dt.full[pkg.name==str.pkg.name])
 }

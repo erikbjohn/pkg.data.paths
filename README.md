@@ -2,5 +2,5 @@
 returns paths for package data hosted on dropbox
 
 ## usage
-pkg.data.paths::dt('~/Dropbox/pkg.data', 'residential.rents')
+pkg.data.paths::paths('~/Dropbox/pkg.data', 'residential.rents')
 

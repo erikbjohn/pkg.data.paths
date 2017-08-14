@@ -2,7 +2,7 @@
 
 export(build.paths)
 export(build.pkg.paths)
-export(dt)
+export(paths)
 import(data.table)
 import(stringr)
 importFrom(data.table,":=")
