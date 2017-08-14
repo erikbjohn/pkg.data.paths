@@ -1,2 +1,6 @@
 # pkg.data.paths
-paths for package data hosted on dropbox
+returns paths for package data hosted on dropbox
+
+## usage
+pkg.data.paths::dt('~/Dropbox/pkg.data', 'residential.rents')
+

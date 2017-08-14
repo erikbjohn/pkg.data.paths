@@ -4,10 +4,12 @@
 \alias{dt}
 \title{dt}
 \usage{
-dt(path.root)
+dt(path.root = NULL, str.pkg.name = NULL)
 }
 \arguments{
 \item{path.root}{root path for dropbox package data}
+
+\item{str.pkg.name}{optional if null return all file paths}
 }
 \description{
 creates data table with path infor
