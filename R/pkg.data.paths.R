@@ -67,8 +67,9 @@ build.paths <- function(path.root, str.pkg.name){
 #' @title build.pkg.paths
 #'
 #' @description Checks specific package paths for raw and clean directories and rebuilds dt
-#' @param dt.full full root paths for all local dropbox data
+#' @param dt.full datatable offull root paths for all local dropbox data
 #' @param str.pkg.name package name
+#' @param path.root root dropbox path
 #' @keywords path dropbox check package
 #' @export
 #' @import stringr

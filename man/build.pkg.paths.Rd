@@ -7,9 +7,11 @@
 build.pkg.paths(dt.full, str.pkg.name, path.root)
 }
 \arguments{
-\item{dt.full}{full root paths for all local dropbox data}
+\item{dt.full}{datatable offull root paths for all local dropbox data}
 
 \item{str.pkg.name}{package name}
+
+\item{path.root}{root dropbox path}
 }
 \description{
 Checks specific package paths for raw and clean directories and rebuilds dt
