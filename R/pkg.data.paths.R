@@ -82,15 +82,16 @@ build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   dir.pkg.raw <- paste0(dir.pkg.root, '/raw')
   dir.pkg.clean <- paste0(dir.pkg.root, '/clean')
   
-  # Check to see if base package data directory exists
-  if (!dir.exists(dir.pkg.root)){
-    dir.create(dir.pkg.root)
-    l.msg$dir.pkg.root <- paste0('Creatied data directory for package in ', dir.pkg.root, '\n \n')
-  }
-  
   # Check for raw and clean data data
   l <- list()
   l.msg <- list()
+  
+  # Check to see if base package data directory exists
+  if (!dir.exists(dir.pkg.root)){
+    dir.create(dir.pkg.root)
+    l.msg$dir.pkg.root <- paste0('Created data directory for package in ', dir.pkg.root, '\n \n')
+  }
+  
   # Build raw clean and assigned locations
   l$dirs <- list.dirs(dir.pkg.root, recursive = FALSE, full.names = FALSE)
   l$raw <- sapply(dt.pkg$sys.path, function(x) str_detect(x, regex('(?i)\\/raw\\/', perl=TRUE)))
