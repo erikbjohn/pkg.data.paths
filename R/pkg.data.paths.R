@@ -41,6 +41,9 @@ paths <- function(path.root=NULL, str.pkg.name = NULL){
       pkg.starter <- paste(path.root, str.pkg.name, 'raw', 'l.pkg.rdata', sep = '/')
       l.pkg <- list()
       save(l.pkg, file = pkg.starter)
+      dt.full <- build.paths(path.root, str.pkg.name)
+      dt.pkg <- build.pkg.paths(dt.full, str.pkg.name, path.root)
+    
     }
     return(dt.pkg)
     # Rebuild 
