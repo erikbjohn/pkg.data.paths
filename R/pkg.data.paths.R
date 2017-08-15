@@ -26,7 +26,7 @@ paths <- function(path.root=NULL, str.pkg.name = NULL){
   # Collect all dropbox pkg.data stored locally
   if (is.null(path.root)){
     path.root  <- '~/Dropbox/pkg.data'
-    cat('Dropbox path missing in pkg.data.paths::path.root. using', path.root, '\n ')
+    # cat('Dropbox path missing in pkg.data.paths::path.root. using', path.root, '\n ')
   }
 
   # Build initial base paths with all dropbox pkg.data files
@@ -77,21 +77,23 @@ build.paths <- function(path.root, str.pkg.name){
 build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   pkg.name <- NULL; file.name <- NULL; file.body <- NULL
   check.raw <- NULL; check.clean <- NULL
-  dt.pkg <- dt.full[str_detect(pkg.name, regex(paste0('(?i)', str.pkg.name), perl=TRUE)) &
-                      !str_detect(file.name, 'Icon')]
-  dir.pkg.root <- dt.pkg$pkg.root[1]
-  dir.pkg.raw <- paste0(dir.pkg.root, '/raw')
-  dir.pkg.clean <- paste0(dir.pkg.root, '/clean')
-  
-  # Check for raw and clean data data
+  # Intialize Lists
   l <- list()
   l.msg <- list()
   
+  dir.pkg.root <- paste0(path.root, '/', str.pkg.name)
+  pkg.dir.exists <- dir.exists(dir.pkg.root)
+  
   # Check to see if base package data directory exists
-  if (!dir.exists(dir.pkg.root)){
+  if (!pkg.dir.exists){
     dir.create(dir.pkg.root)
     l.msg$dir.pkg.root <- paste0('Created data directory for package in ', dir.pkg.root, '\n \n')
   }
+  
+  dt.pkg <- dt.full[str_detect(pkg.name, regex(paste0('(?i)', str.pkg.name), perl=TRUE)) &
+                      !str_detect(file.name, 'Icon')]
+  dir.pkg.raw <- paste0(dir.pkg.root, '/raw')
+  dir.pkg.clean <- paste0(dir.pkg.root, '/clean')
   
   # Build raw clean and assigned locations
   l$dirs <- list.dirs(dir.pkg.root, recursive = FALSE, full.names = FALSE)
@@ -101,15 +103,15 @@ build.pkg.paths <- function(dt.full, str.pkg.name, path.root){
   dt.pkg$check.clean <- l$clean
   l$unassigned.files <- dt.pkg[!check.raw & !check.clean & file.body == '']
   l$unassigned.dirs <- l$dirs[!str_detect(l$dirs, regex('(?i)(clean|raw)', perl=TRUE))]
-
+  
   # Check for raw data directory
-  if (length(which(l$raw)) == 0){
+  if (length(l$dirs[l$dirs=='raw']) == 0){
     dir.create(dir.pkg.raw, showWarnings = FALSE)
     l.msg$dir.pkg.raw <- paste0('Created raw directory for package in ', dir.pkg.raw)
   }
   
   # Check for clean data directory
-  if (length(which(l$clean))== 0){
+  if (length(l$dirs[l$dirs=='clean']) == 0){
     dir.create(dir.pkg.clean, showWarnings = FALSE)
     l.msg$dir.pkg.clean <- paste0('Created clean directory for package in ', dir.pkg.clean)
   }
