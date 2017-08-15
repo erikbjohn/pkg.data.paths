@@ -36,6 +36,12 @@ paths <- function(path.root=NULL, str.pkg.name = NULL){
   if (!is.null(str.pkg.name)){
     # Check and intialize 'clean' directories for new import
     dt.pkg <- build.pkg.paths(dt.full, str.pkg.name, path.root)
+    # Populate package with list in raw if missing (for things such as api.keys)
+    if (nrow(dt.pkg)==0){
+      pkg.starter <- paste(path.root, str.pkg.name, 'raw', 'l.pkg.rdata', sep = '/')
+      l.pkg <- list()
+      save(l.pkg, file = pkg.starter)
+    }
     return(dt.pkg)
     # Rebuild 
   } else {
